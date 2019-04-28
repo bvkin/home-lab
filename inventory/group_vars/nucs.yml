@@ -3,3 +3,6 @@
 ansible_user: bkincaid
 
 hostname: intel-nuc
+
+list_of_packages_to_install:
+  - docker
