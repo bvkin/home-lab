@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  roles:
+    - role: ../galaxy/config-hosts-file
+      become: yes

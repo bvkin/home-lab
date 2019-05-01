@@ -1,0 +1,17 @@
+- hosts: nucs
+  vars: 
+    docker_compose_url: https://github.com/docker/compose/releases/download/1.24.0/docker-compose
+  tasks:
+    - name: register os
+      command: uname -s
+      register: uname_s
+
+    - name: register arch
+      command: uname -m
+      register: uname_m
+
+    - get_url:
+        url: "{{ docker_compose_url }}-{{ uname_s.stdout }}-{{ uname_m.stdout }}"
+        dest: /usr/local/bin/docker-compose
+        mode: 0770
+      become: true

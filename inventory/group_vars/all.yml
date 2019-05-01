@@ -1,0 +1,17 @@
+---
+
+hosts:
+  - hostname: localhost
+    ip: 127.0.0.1
+  - hostname: localhost
+    ip: ::1
+  - hostname: broadcasthost
+    ip: 255.255.255.255
+  - hostname: master
+    ip: 192.168.1.44
+  - hostname: compute1
+    ip: 192.168.1.56
+  - hostname: compute2
+    ip: 192.168.1.43
+  - hostname: compute3
+    ip: 192.168.1.30

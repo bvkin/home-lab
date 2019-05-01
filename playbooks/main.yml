@@ -1,3 +1,14 @@
 ---
 
 - import_playbook: config-hostname.yml
+  tags:
+    - hostname
+
+- import_playbook: config-packages.yml
+  tags:
+    - packages
+
+- import_playbook: config-docker-compose.yml
+  tags:
+    - packages
+    - docker-compose
