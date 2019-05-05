@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: lab-nodes
   roles:
     - role: ../galaxy/config-hosts-file
       become: yes

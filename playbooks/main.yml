@@ -1,8 +1,12 @@
 ---
 
-- import_playbook: config-hostname.yml
+- import_playbook: config-hostnames.yml
   tags:
-    - hostname
+    - hosts
+
+- import_playbook: config-host-files.yml
+  tags:
+    - hosts
 
 - import_playbook: config-packages.yml
   tags:
