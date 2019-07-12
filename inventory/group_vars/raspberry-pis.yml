@@ -1,0 +1,21 @@
+hosts:
+  - hostname: localhost
+    ip: 127.0.0.1
+  - hostname: localhost ip6-localhost ip6-loopback
+    ip: ::1
+  - hostname: ip6-allnodes
+    ip: ff02::1
+  - hostname: ip6-allrouters
+    ip: ff02::2
+  - hostname: broadcasthost
+    ip: 255.255.255.255
+  - hostname: master
+    ip: 192.168.1.44
+  - hostname: compute1
+    ip: 192.168.1.56
+  - hostname: compute2
+    ip: 192.168.1.43
+  - hostname: compute3
+    ip: 192.168.1.30
+  - hostname: intel-nuc
+    ip: 192.168.1.52

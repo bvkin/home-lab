@@ -1,0 +1,12 @@
+[nucs]
+intel-nuc1
+
+[raspberry-pis]
+master
+compute1
+compute2
+compute3
+
+[lab-nodes:children]
+raspberry-pis
+nucs

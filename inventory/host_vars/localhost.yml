@@ -1,0 +1,4 @@
+---
+
+ansible_connection: local
+hosts_file_group: wheel
