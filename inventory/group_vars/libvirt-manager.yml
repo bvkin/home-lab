@@ -1,0 +1,16 @@
+---
+
+
+libvirt_vms:
+  - state: present
+    name: 'vm1'
+    memory_mb: 512
+    vcpus: 1
+    format: "qcow2"
+    volumes:
+      - name: "vm1.qcow"
+        device: "disk"
+        format: "qcow2"
+        capacity: "6GB"
+        pool: "default"
+        image: "/var/lib/libvirt/images/test.qcow2"

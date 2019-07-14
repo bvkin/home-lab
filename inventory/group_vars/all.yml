@@ -15,3 +15,26 @@ hosts:
     ip: 192.168.1.43
   - hostname: compute3
     ip: 192.168.1.30
+
+
+dns_data:
+  views:
+    - name: public
+      named:
+        recursion: 'no'
+        acl_entry:
+        - 192.168.122.0/24
+      zones:
+        - nsupdate: 
+            named: True
+            server: 192.168.122.25
+            key_name: "public-first.example.com"
+            key_secret: "dZpKXAXQvGhlSJ7376yfIyjbbhYKWI2YkeaAcv1Ani0="
+            key_algorithm: "hmac-sha256"
+          dns_domain: "first.example.com"
+          entries:
+            - record: "test"
+              value:  192.168.122.189
+              type: "A"
+      default_forwarders:
+          - 8.8.8.8

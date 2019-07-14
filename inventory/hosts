@@ -10,3 +10,15 @@ compute3
 [lab-nodes:children]
 raspberry-pis
 nucs
+
+[libvirt-manager]
+localhost
+
+[dns-server]
+192.168.122.25
+
+[dns-records-manage-host]
+192.168.122.25
+
+[dns-zones-manage-host]
+192.168.122.25
