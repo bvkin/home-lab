@@ -3,14 +3,20 @@
 
 libvirt_vms:
   - state: present
-    name: 'vm1'
+    name: 'tst'
     memory_mb: 512
     vcpus: 1
     format: "qcow2"
     volumes:
-      - name: "vm1.qcow"
+      - name: "tst-run.qcow2"
         device: "disk"
         format: "qcow2"
-        capacity: "6GB"
+        capacity: "9GB"
         pool: "default"
-        image: "/var/lib/libvirt/images/test.qcow2"
+        image: "/home/bkincaid/libvirt/qcow-test/tst.qcow2"
+      - name: "tst-config.iso"
+        device: "disk"
+        format: "raw"
+        capacity: "1MB"
+        pool: "default"
+        image: "/home/bkincaid/libvirt/qcow-test/config.iso"

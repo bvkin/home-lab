@@ -22,3 +22,6 @@ localhost
 
 [dns-zones-manage-host]
 192.168.122.25
+
+[kimchi-host:children]
+nucs

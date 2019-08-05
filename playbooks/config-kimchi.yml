@@ -1,0 +1,16 @@
+---
+
+- hosts: kimchi-host
+  vars:
+    list_of_packages_to_install:
+      - https://github.com/kimchi-project/wok/releases/download/2.5.0/wok-2.5.0-0.el7.centos.noarch.rpm
+      - https://github.com/kimchi-project/kimchi/releases/download/2.5.0/kimchi-2.5.0-0.el7.centos.noarch.rpm
+  roles:
+    - config-packages
+  tasks:
+    - name: "Start and Enable wok service"
+      service:
+        name: wokd
+        state: started
+        enabled: yes
+      become: True
