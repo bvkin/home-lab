@@ -1,6 +1,7 @@
 # From 'infra-ansible'
-- src: https://github.com/bvkin/config-hosts-file
 - src: https://github.com/redhat-cop/infra-ansible
   version: v1.0.11
-- src: https://github.com/stackhpc/ansible-role-libvirt-vm.git
-  version: v1.6.0
+# Personal role for handling virtualization
+- src: https://github.com/bvkin/config-libvirt.git
+# Personal for handling host files on machines
+- src: https://github.com/bvkin/config-hosts-file

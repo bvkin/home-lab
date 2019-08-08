@@ -1,5 +1,0 @@
----
-
-- hosts: libvirt-manager
-  roles:
-    - ../galaxy/ansible-role-libvirt-vm
