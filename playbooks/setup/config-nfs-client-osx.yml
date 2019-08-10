@@ -1,0 +1,13 @@
+---
+
+- hosts: mac
+  tasks:
+    - name: "Mount dir"  
+      command: "mount -o resvport -t nfs {{ item.host }}:{{ item.source }} {{ item.dest }}" 
+      args:
+        warn: false
+      become: True
+      with_items:
+        - "{{ nfs_mounts }}"
+
+
