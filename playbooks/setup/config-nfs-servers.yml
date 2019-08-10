@@ -2,5 +2,5 @@
 
 - hosts: nfs-servers
   roles: 
-    - nfs-server 
+    - ../../galaxy/ansible-role-nfs 
   

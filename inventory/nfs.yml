@@ -1,6 +1,0 @@
----
-
-nfs_storage_device: /dev/sda4
-
-nfs_shares: 
-  - name: dev

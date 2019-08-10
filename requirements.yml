@@ -1,6 +1,9 @@
 # From 'infra-ansible'
 - src: https://github.com/redhat-cop/infra-ansible
   version: v1.0.11
+# Role for configuring nfs
+- src: https://github.com/geerlingguy/ansible-role-nfs.git
+  version: 1.5.0
 # Personal role for handling virtualization
 - src: https://github.com/bvkin/config-libvirt.git
 # Personal for handling host files on machines
