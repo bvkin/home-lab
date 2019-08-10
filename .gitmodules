@@ -1,3 +1,0 @@
-[submodule "home-lab-inventory"]
-	path = home-lab-inventory
-	url = git@github.com:bvkin/home-lab-inventory.git
