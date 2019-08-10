@@ -1,0 +1,19 @@
+---
+
+- hosts: nucs
+  tasks:
+    - name: Add repository
+      yum_repository:
+        name: code
+        description: Visual Studio Code repo
+        file: vscode
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+        gpgcheck: yes
+        enabled: yes
+      become: yes
+
+    - package:
+        name: code
+        state: present
+      become: yes

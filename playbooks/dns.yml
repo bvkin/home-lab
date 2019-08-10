@@ -1,5 +1,0 @@
----
-
-- import_playbook: ../galaxy/infra-ansible/playbooks/provision-dns-server/main.yml
-
-- import_playbook: ../galaxy/infra-ansible/playbooks/update-dns-records.yml

@@ -1,0 +1,36 @@
+---
+- hosts: nucs            
+  become: yes
+  tasks:
+    - name: Install Xauthority
+      package:
+          name: "{{ item }}"
+          state: present
+      with_items:
+        - xorg-x11-server-Xorg
+        - xorg-x11-xauth
+        - xorg-x11-apps
+
+    - name: Enabling X11 Forwarding  
+      lineinfile:
+        dest: /etc/ssh/ssh_config
+        regexp: '^#\s*ForwardX11.*$'
+        line: 'ForwardX11 yes'
+      notify:
+        - restart_sshd
+        - restart_ssh
+
+  handlers:
+    - name: restart_sshd
+      service:
+          name: sshd
+          state: restarted
+          enabled: true
+      when: ansible_distribution == 'RedHat'
+
+    - name: restart_ssh 
+      service:
+          name: ssh
+          state: restarted
+          enabled: true
+      when: ansible_distribution == 'Debian'

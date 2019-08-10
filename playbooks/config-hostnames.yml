@@ -1,6 +1,0 @@
----
-
-- hosts: nucs
-  roles:
-    - role: ../galaxy/infra-ansible/roles/config-hostname
-      become: yes
