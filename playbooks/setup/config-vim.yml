@@ -1,0 +1,36 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: Ensure vim is installed
+      package:
+        name: vim 
+        state: present
+
+    - name: Register path to home
+      set_fact:
+        vim_path: "{{ lookup('env','HOME') }}/.vim"
+
+    - name: Ansible check file exists example.
+      stat:
+        path: "{{ vim_path }}"
+      register: file_details
+
+    - name: Add .vim repo
+      git:
+        repo: "{{ vim_setup_repo }}"
+        dest: "{{ lookup('env','HOME') }}"
+      when:
+        - not file_details.stat.exists
+
+    - name: Link to .vimrc
+      file:
+        src: "{{ lookup('env','HOME') }}/.vim/.vimrc-yml"
+        dest: "{{ lookup('env','HOME') }}/.vimrc"
+        state: link
+
+    - name: Pull in dependancies
+      copy: 
+        src: "{{ inventory_dir }}/../files/yaml.vim"
+        dest: "{{ lookup('env','HOME') }}/.vim"
+
