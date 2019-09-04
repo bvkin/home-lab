@@ -11,17 +11,39 @@
       set_fact:
         vim_path: "{{ lookup('env','HOME') }}/.vim"
 
-    - name: Ansible check file exists example.
+    - name: Check if .vim dir exists.
       stat:
         path: "{{ vim_path }}"
-      register: file_details
+      register: vim_details
 
     - name: Add .vim repo
       git:
         repo: "{{ vim_setup_repo }}"
         dest: "{{ lookup('env','HOME') }}"
       when:
-        - not file_details.stat.exists
+        - not vim_details.stat.exists
+
+    - name: Check if bundle exists 
+      stat:
+        path: "{{ vim_path }}/bundle"
+      register: bundle_details
+
+    - name: Add bundle dir 
+      file:
+        path: "{{ vim_path }}/bundle"
+        state: directory
+
+    - name: Check if Vundle.vim exists 
+      stat:
+        path: "{{ vim_path }}/bundle/Vundle.vim"
+      register: vundle_details
+
+    - name: Add vundle repo
+      git:
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: "{{ lookup('env','HOME') }}/.vim/bundle/Vundle.vim"
+      when:
+        - not vundle_details.stat.exists
 
     - name: Link to .vimrc
       file:
