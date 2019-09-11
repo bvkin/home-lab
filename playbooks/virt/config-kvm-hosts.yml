@@ -2,4 +2,4 @@
 
 - hosts: kvm_manage_hosts
   roles:
-    - ../galaxy/config-libvirt
+    - ../../galaxy/config-libvirt
