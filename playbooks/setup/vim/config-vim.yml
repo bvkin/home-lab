@@ -1,0 +1,27 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: Ensure vim is installed
+      package:
+        name: vim 
+        state: present
+
+    - name: Remove old .vimrc file
+      file: 
+        path: ~/.vimrc
+        state: absent
+
+    - name: Link .vimrc
+      file:
+        src: "{{ lookup('env','HOME') }}/.dotfiles/vim/{{ dotfiles.vim.rc_file }}"
+        dest: "{{ lookup('env','HOME') }}/.vimrc"
+        state: link
+
+    - name: Pull in dependancies
+      copy: 
+        src: "{{ inventory_dir }}/../files/{{ item }}"
+        dest: "{{ lookup('env','HOME') }}/.dotfiles/vim/"
+      with_items:
+        - "{{ dotfiles.vim.modules }}"
+
