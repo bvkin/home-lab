@@ -1,0 +1,23 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: Check if oh-my-zsh is installed 
+      stat:
+        path: "{{ lookup('env','HOME') }}/.oh-my-zsh"
+      register: oh-my-zsh-install
+
+    - name: Install oh-my-zsh
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      ignore_errors: yes
+
+    - name: Remove old .vimrc file
+      file: 
+        path: ~/.zshrc
+        state: absent
+
+    - name: Link desired .zshrc file
+      file:
+        src: "{{ lookup('env','HOME') }}/.dotfiles/zsh/{{ dotfiles.zsh.rc_file }}"
+        dest: "{{ lookup('env','HOME') }}/.zshrc"
+        state: link

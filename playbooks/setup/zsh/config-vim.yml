@@ -1,8 +1,0 @@
----
-
-- host: localhost
-  tasks:
-    - name: Check if oh-my-zsh is installed 
-      stat:
-        path: "{{ lookup('env','HOME') }}/.oh-my-zsh"
-      register: oh-my-zsh-install

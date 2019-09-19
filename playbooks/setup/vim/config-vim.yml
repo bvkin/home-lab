@@ -12,7 +12,7 @@
         path: ~/.vimrc
         state: absent
 
-    - name: Link .vimrc
+    - name: Link desired .vimrc file
       file:
         src: "{{ lookup('env','HOME') }}/.dotfiles/vim/{{ dotfiles.vim.rc_file }}"
         dest: "{{ lookup('env','HOME') }}/.vimrc"

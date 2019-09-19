@@ -2,4 +2,4 @@
 
 - import_playbook: ../install-dotfiles.yml
 
-- import_playbook: config-vim.yml
+- import_playbook: config-zsh.yml
