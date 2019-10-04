@@ -1,16 +1,17 @@
 ---
 
 - hosts: localhost
+  vars:
+    dotfiles_path: "{{ lookup('env','HOME') }}/.dotfiles"
   tasks:
-
     - name: Check if dotfiles dir exists
       stat:
-        path: "{{ lookup('env','HOME') }}/.dotfiles"
+        path: "{{ dotfiles_path }}"
       register: file_details
 
     - name: Add .dotfiles repo
       git:
         repo: "{{ dotfiles.repo }}"
-        dest: "{{ lookup('env','HOME') }}"
+        dest: "{{ dotfiles_path }}"
       when:
         - not file_details.stat.exists

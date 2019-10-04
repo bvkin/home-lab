@@ -1,6 +1,0 @@
-- hosts: nucs
-  tasks:
-    - import_role:
-        name: ../galaxy/infra-ansible/roles/config-packages
-      become: true
-

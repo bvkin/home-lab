@@ -1,6 +1,8 @@
 ---
 
 - hosts: localhost
+  vars:
+    vundle_path: "{{ lookup('env','HOME') }}/.dotfiles/vim/bundle"  
   tasks:
     - name: Ensure vim is installed
       package:
@@ -17,6 +19,17 @@
         src: "{{ lookup('env','HOME') }}/.dotfiles/vim/{{ dotfiles.vim.rc_file }}"
         dest: "{{ lookup('env','HOME') }}/.vimrc"
         state: link
+
+    - name: Ensure vundle path exists
+      file:
+        path: "{{ vundle_path }}"
+        state: directory
+        recurse: True
+
+    - name: Add vundle
+      git: 
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: "{{ vundle_path }}/Vundle.vim"
 
     - name: Pull in dependancies
       copy: 

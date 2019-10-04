@@ -10,8 +10,10 @@
     - name: Install oh-my-zsh
       shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
       ignore_errors: yes
+      when: 
+        - oh-my-zsh-install.stat.exists
 
-    - name: Remove old .vimrc file
+    - name: Remove old .zshrc file
       file: 
         path: ~/.zshrc
         state: absent
