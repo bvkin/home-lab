@@ -1,0 +1,22 @@
+---
+
+- hosts: users
+  tasks:
+    - name: Add group for each user
+      group:
+        name: "{{ user.name }}"
+        state: present
+      with_items:
+        - "{{ users }}"
+      loop_control:
+        loop_var: user
+
+    - name: Add users
+      user:
+          name: "{{ user.name }}"
+          groups: "{{ user.groups }}"
+          generate_ssh_key: "{{ user.generate_ssh_key }}"
+      with_items:
+        - "{{ users }}"
+      loop_control:
+        loop_var: user
