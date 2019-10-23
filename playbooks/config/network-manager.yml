@@ -1,0 +1,24 @@
+---
+
+- hosts: network_managed
+  tasks:
+    - name: install needed network manager libs
+      package:
+        name:
+          - NetworkManager-glib
+        state: present
+
+    - name: Connect to network
+      nmcli:
+        conn_name: "{{ connection.conn_name }}"
+        type: "{{ connection.type }}"
+        ifname: "{{ connection.ifname }}"
+        ip4: "{{ connection.ip4 }}"
+        gw4: "{{ connection.gw4 }}"
+        dns4: "{{ connection.dns4 }}"
+        state: "{{ connection.state }}"
+        autoconnect: "{{ connection.autoconnect }}"
+      with_items:
+        - "{{ network_manager }}"
+      loop_control:
+        loop_var: connection
