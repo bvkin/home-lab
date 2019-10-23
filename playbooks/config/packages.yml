@@ -1,4 +1,4 @@
-- hosts: package-hosts
+- hosts: package
   tasks:
     - import_role:
         name: ../../galaxy/infra-ansible/roles/config-packages
