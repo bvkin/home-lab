@@ -1,0 +1,13 @@
+---
+
+- hosts: services
+  tasks:
+    - name: Configure services
+      service:
+        name: "{{ serv.name }}"
+        state: "{{ serv.state }}"
+        enabled: "{{ serv.enabled | default(false) }}"
+      with_items:
+      - "{{ services }}"
+      loop_control:
+        loop_var: serv
