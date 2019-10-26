@@ -1,0 +1,17 @@
+---
+
+- hosts: partitions
+  tasks:
+    - name: Add desired partitons
+      parted:
+        device: "{{ vol.device }}"
+        number: "{{ vol.number }}"
+        state: "{{ vol.state | default('present')}}"
+        align: "{{ vol.align | default('optimal') }}"
+        part_start: "{{ vol.part_start | default('0%') }}"
+        part_end: "{{ vol.part_end }}"
+        part_type: "{{ vol.part_type }}"
+      with_items:
+      - "{{ volumes }}"
+      loop_control:
+        loop_var: vol
