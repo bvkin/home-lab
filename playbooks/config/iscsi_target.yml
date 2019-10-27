@@ -1,0 +1,5 @@
+---
+
+- hosts: iscsi_targets
+  roles:
+    - ../../galaxy/ansible.targetcli

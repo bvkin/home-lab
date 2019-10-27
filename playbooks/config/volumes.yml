@@ -1,0 +1,46 @@
+---
+
+- hosts: volumes
+  tasks:
+    - name: Config desired partitons
+      parted:
+        device: "{{ part.device }}"
+        number: "{{ part.number }}"
+        state: "{{ part.state | default('present')}}"
+        align: "{{ part.align | default('optimal') }}"
+        part_start: "{{ part.part_start | default('0%') }}"
+        part_end: "{{ part.part_end }}"
+        part_type: "{{ part.part_type }}"
+      with_items:
+      - "{{ partitions }}"
+      loop_control:
+        loop_var: part
+      when:
+      - partitions is defined
+
+    - name: Config desired volume groups
+      lvg:
+        vg: "{{ group.vg }}"
+        state: "{{ group.state }}"
+        pvs: "{{ group.pvs }}"
+      with_items:
+      - "{{ volume_groups }}"
+      loop_control:
+        loop_var: group
+      when:
+      - volume_groups is defined
+
+    - name: Config logical volumes
+      lvol:
+        vg: "{{ vol.vg }}"
+        lv: "{{ vol.lv }}"
+        size: "{{ vol.size }}"
+        state: "{{ vol.state | default('present') }}"
+        force: "{{ vol.force | default('no') }}"
+      with_items:
+      - "{{ logical_volumes }}"
+      loop_control:
+        loop_var: vol
+      when:
+      - logical_volumes is defined
+ 
