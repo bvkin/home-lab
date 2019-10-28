@@ -17,6 +17,7 @@
         loop_var: part
       when:
       - partitions is defined
+      become: true
 
     - name: Config desired volume groups
       lvg:
@@ -29,6 +30,7 @@
         loop_var: group
       when:
       - volume_groups is defined
+      become: true
 
     - name: Config logical volumes
       lvol:
@@ -43,4 +45,4 @@
         loop_var: vol
       when:
       - logical_volumes is defined
- 
+      become: true

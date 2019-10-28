@@ -11,3 +11,4 @@
       - "{{ services }}"
       loop_control:
         loop_var: serv
+      become: yes

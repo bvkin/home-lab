@@ -1,0 +1,13 @@
+---
+
+- hosts: volumes
+  tasks:
+    - name: Config file systems
+      filesystem:
+        fstype: "{{ fs.type }}"
+        dev: "{{ fs.device }}"
+      with_items:
+      - "{{ filesystems }}"
+      loop_control:
+        loop_var: fs
+      become: true

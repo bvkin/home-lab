@@ -1,0 +1,23 @@
+---
+
+- hosts: iscsi_clients
+  tasks:
+    - name: Add target to initiatorname
+      lineinfile:
+        path: /etc/iscsi/initiatorname.iscsi
+        regexp: '^InitiatorName='
+        line: "InitiatorName={{ iscsi_clients.node_user }}"
+
+    - name: Config iscis clients
+      open_iscsi:
+        auto_node_startup: "{{ client.auto_node_startup | default('yes') }}"
+        discover: "{{ client.discover }}"
+        login: "{{ client.login | default('no') }}"
+        portal: "{{ client.portal }}"
+        show_nodes: "{{ client.show_nodes | default('yes') }}"
+        target: "{{ client.target }}"
+      with_items:
+      - "{{ iscsi_clients.targets }}"
+      loop_control:
+        loop_var: client
+      become: true
