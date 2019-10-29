@@ -1,6 +1,8 @@
 ---
 
-- hosts: host-name
-  roles:
-    - role: ../../galaxy/infra-ansible/roles/config-hostname
-      become: yes
+- hosts: hostname
+  tasks:
+    - name: Setting hostname
+      hostname:
+        name: "{{ hostname }}"
+
