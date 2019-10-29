@@ -7,6 +7,8 @@
 # Configuration for iscsi
 - src: https://github.com/bvkin/ansible.targetcli.git
 # Personal role for handling virtualization
-- src: https://github.com/bvkin/config-libvirt.git
+- src: https://github.com/bvkin/config-libvirt-vms.git
+# Personal role for handling components for aiding in virtualization
+- src: https://github.com/bvkin/config-libvirt-components.git
 # Personal for handling host files on machines
 - src: https://github.com/bvkin/config-hosts-file
