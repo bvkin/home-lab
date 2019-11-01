@@ -1,0 +1,13 @@
+---
+
+- hosts: access_control
+  tasks:
+    - name: "add acl for {{ item.name }}"
+      acl:
+        entity: "{{ item.entity }}"
+        etype: "{{ item.etype }}"
+        path: "{{ item.path }}"
+        permissions: "{{ item.permissions }}"
+        state: "{{ item.state | default('present') }}"
+      with_items:
+      - "{{ acl_entries }}"

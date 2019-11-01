@@ -1,6 +1,6 @@
 ---
 
-- hosts: users
+- hosts: access_control
   tasks:
     - name: Add group for each user
       group:
