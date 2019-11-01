@@ -1,0 +1,7 @@
+---
+
+- hosts: package
+  tasks:
+    - name: "pip install desired packages"
+      pip:
+        name: "{{ pip_packages }}"
