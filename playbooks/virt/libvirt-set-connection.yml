@@ -1,0 +1,11 @@
+---
+
+- hosts: kvm_manage_hosts
+  tasks:
+    - name: "Ensure that users have proper connection"
+      lineinfile:
+        path: "/home/{{ item.user }}/.{{ item.shell }}rc"
+        line: "export LIBVIRT_DEFAULT_URI='{{ item.connection }}'"
+        state: present
+      with_items:
+      - "{{ libvirt.user_connections }}"
