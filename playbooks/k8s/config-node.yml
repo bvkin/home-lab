@@ -1,0 +1,92 @@
+---
+
+- hosts: all
+  tasks:
+    - name: 'Set selinux to permissive'
+      selinux:
+        policy: targeted
+        state: permissive
+
+    - name: "Disable swap"
+      shell: |
+        swapoff -a
+ 
+    - name: "Disable swap in fstab"
+      replace:
+        path: /etc/fstab
+        regexp: '^([^#].*?\swap\s+sw\s+.*)$'
+        replace: '# \1'
+
+    - name: 'Open appropriate firewall ports'
+      firewalld:
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      with_items:
+      - 6443/tcp
+      - 2379-2380/tcp
+      - 10250/tcp
+      - 10251/tcp
+      - 10252/tcp
+      - 10255/tcp
+      - 10248/tcp
+
+    - name: "Add the br_netfilter module"
+      modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: "Add kubernetes yum repo"
+      yum_repository:
+        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        enabled: True
+        name: kubernetes
+        gpgcheck: False
+        description: "Kubernetes repository"
+
+    - name: "Install required packages"
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+      - kubeadm
+      - podman
+
+    - name: "Start services"
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: True
+      with_items:
+      - kubelet
+
+    - name: Allow ip_forward
+      command: "sysctl -w net.ipv4.ip_forward=1"
+
+    - name: Make ip_forward perminant
+      command: "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+    - name: Add partition for new space
+      parted:
+        device: /dev/sda
+        number: 3
+        part_start: 6GiB
+        part_end: 100%
+        part_type: primary
+        state: present
+
+    - name: Add new partiton to volume group
+      lvg:
+        vg: centos
+        pvs: 
+        - /dev/sda2
+        - /dev/sda3  
+
+    - name: Extend the logical volume to consume all remaining space in the volume group
+      lvol:
+        vg: centos
+        lv: root
+        resizefs: yes
+        size: +100%FREE
+

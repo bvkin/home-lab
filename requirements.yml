@@ -10,5 +10,7 @@
 - src: https://github.com/bvkin/config-libvirt-vms.git
 # Personal role for handling components for aiding in virtualization
 - src: https://github.com/bvkin/config-libvirt-components.git
-# Personal for handling host files on machines
+# Personal role for handling host files on machines
 - src: https://github.com/bvkin/config-hosts-file
+# Personal role for installing crio
+- src: https://github.com/bvkin/install-crio.git
