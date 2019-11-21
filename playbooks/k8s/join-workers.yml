@@ -1,0 +1,9 @@
+---
+
+- hosts: compute
+  tasks:
+    - debug:
+        msg: "{{ groups }}"
+
+    - name: Join the master
+      shell: "{{ hostvars[groups['master'][0]]['kubeadm_join'].stdout }}"

@@ -55,7 +55,7 @@
         state: present
       with_items:
       - kubeadm
-      - podman
+      - docker
 
     - name: "Start services"
       service:
@@ -64,6 +64,7 @@
         enabled: True
       with_items:
       - kubelet
+      - docker
 
     - name: Allow ip_forward
       command: "sysctl -w net.ipv4.ip_forward=1"

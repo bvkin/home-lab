@@ -1,0 +1,41 @@
+---
+
+- hosts: master
+  tasks:
+    - name: Check if the kubernetes api server is currently running
+      shell: "ss -tp state listening sport = :6443 | grep kube-apiserver"
+      register: kube_api_status
+      ignore_errors: True
+
+    - name: Run init command
+      command: "kubeadm init"
+      register: init_output
+      when: kube_api_status.stdout_lines == [] 
+
+    - name: Display init command output
+      debug:
+         msg: "{{ init_output }}"
+
+    - name: Create kube config directory
+      file:
+        path: "{{ ansible_user_dir }}/.kube"
+        state: directory
+        recurse: True
+
+    - name: Copy over admin conf to home directory
+      copy:
+        remote_src: True
+        src: /etc/kubernetes/admin.conf
+        dest: "{{ ansible_user_dir }}/.kube/config"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Install weave
+      shell: 'kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d "\n")"'
+
+    - name: Register the kubeadm join command
+      command: "kubeadm token create --print-join-command"
+      register: kubeadm_join
+
+    - debug:
+        msg: "{{ kubeadm_join }}"
