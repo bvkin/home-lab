@@ -1,6 +1,6 @@
 ---
 
-- hosts: nucs
+- hosts: localhost
   tasks:
     - name: Add repository
       yum_repository:
